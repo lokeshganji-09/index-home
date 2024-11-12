@@ -1,0 +1,38 @@
+import mysql.connector
+connection=mysql.connector.connect(
+    host='192.168.131.34',
+    port=3306,
+    user='neelesh',
+    password="l4s@1234",
+    database='pythontest'
+
+)
+cursor=connection.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Employees(
+    id INT,
+    name VARCHAR(100),
+    salary FLOAT
+)
+""")
+connection.commit()
+'''cursor.execute("INSERT INTO Employees(id,name,salary) VALUES (%s,%s,%s)",(int(input()),input(),float(input())))
+connection.commit()'''
+def Show_Table():
+    cursor.execute("SELECT * FROM Employees")
+    result=cursor.fetchall()
+    for row in result:
+        print(row,sep=" ") 
+def Update_Table(up_value,cond_value):
+    cursor.execute("UPDATE Employees SET id=%s WHERE salary=%s",(up_value,cond_value))
+    connection.commit()
+
+'''cursor.execute("DELETE FROM Employees WHERE salary=%s",(45000,))
+connection.commit()'''
+Update_Table(107,30000)
+Show_Table()
+cursor.close()
+connection.close()
+
+
+   
